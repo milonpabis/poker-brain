@@ -2,7 +2,7 @@ import Card
 import random as rd
 
 suits = ["Hearts", "Diamonds", "Spades", "Clubs"]
-ranks = ["Ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"]
+ranks = [["Ace"], 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"]
 
 class Deck:
 
@@ -22,4 +22,5 @@ class Deck:
 
     def remove_card(self, card):
         self.cards.remove(card)
+
     
