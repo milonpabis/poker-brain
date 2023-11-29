@@ -1,7 +1,7 @@
-import Card
-import Deck
-import Hand
-import Board
+from assets.Card import Card
+from assets.Deck import Deck
+from assets.Hand import Hand
+from assets.Board import Board
 from multipledispatch import dispatch
 
 class Brain:
@@ -16,6 +16,7 @@ class Brain:
     def add_hand_card(self, card):  # adds a card to the hand
         if len(self.hand.get_cards()) < 2:
             self.hand.add_card(self.deck.remove_card(card))
+        return card
     
 
     @dispatch(str, int)
@@ -29,6 +30,7 @@ class Brain:
         if len(self.hand.get_cards()):
             self.hand.remove_card(card)
             self.deck.add_card(card)
+        return card
 
 
     @dispatch(str, int)
@@ -42,6 +44,7 @@ class Brain:
     def add_board_card(self, card): # adds a card to the board
         if len(self.board.get_cards()) < 5:
             self.board.add_card(self.deck.remove_card(card))
+        return card
 
 
     @dispatch(str, int)
@@ -77,6 +80,38 @@ class Brain:
             return self.how_many_cards(value=value) / len(self.deck.get_cards())
         else:
             return self.how_many_cards(value=value, suit=suit) / len(self.deck.get_cards())
+        
+        
+    def color_chance(self):     # USING 2 ABOVE FUNCTIONS AND INFO ABOUT CARDS IN HAND AND BOARD
+        ...
+
+    def pair_chance(self):
+        ...
+
+    def two_pair_chance(self):
+        ...
+
+    def three_of_a_kind_chance(self):
+        ...
+
+    def straight_chance(self):
+        ...
+
+    def flush_chance(self):
+        ...
+
+    def full_house_chance(self):
+        ...
+
+    def four_of_a_kind_chance(self):
+        ...
+
+    def straight_flush_chance(self):
+        ...
+
+    def royal_flush_chance(self):
+        ...
+
     
 
     

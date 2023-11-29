@@ -1,5 +1,4 @@
-import Card
-import Hand
+from assets.Card import Card
 
 class Board:
 
@@ -9,8 +8,16 @@ class Board:
     def set_cards(self, cards):
         self.cards = cards
 
-    def add_card(self, card):
+    def add_card(self, card:Card):
         self.cards.append(card)
 
     def get_cards(self):
         return self.cards
+    
+    def __str__(self):
+        string = ""
+        for i in range(len(self.cards)):
+            string += str(self.cards[i]) + "\t"
+        if not string:
+            string = "Board is empty"
+        return string
