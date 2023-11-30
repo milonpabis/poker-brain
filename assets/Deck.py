@@ -20,8 +20,8 @@ class Deck:
         return card
 
     @dispatch(str, int)
-    def remove_card(self, suit, value):
-        card = [card for card in self.cards if card.get_suit() == suit and card.get_value() == value][0]
+    def remove_card(self, suit, rank):
+        card = [card for card in self.cards if card.get_suit() == suit and card.get_rank() == rank][0]
         self.cards.remove(card)
         return card
 
@@ -30,15 +30,19 @@ class Deck:
         self.cards.append(card)
         return card
 
-    @dispatch(str, int)
-    def add_card(self, suit, value):
-        self.cards.append(Card(suit, value))
 
-    def return_suit(self, suit):
+
+
+
+    @dispatch(str, int)
+    def __add_card(self, suit, rank):
+        self.cards.append(Card(suit, rank))
+
+    def return_suits(self, suit):
         return [card for card in self.cards if card.get_suit() == suit]
     
-    def return_ranks(self, value):  
-        return [card for card in self.cards if card.convert_to_value(card.get_value()) == value]
+    def return_ranks(self, rank):  
+        return [card for card in self.cards if card.get_rank() == rank]
     
     def get_cards(self):
         return self.cards

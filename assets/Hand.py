@@ -1,5 +1,5 @@
 from assets.Card import Card
-
+from multipledispatch import dispatch
 
 class Hand:
 
@@ -23,6 +23,23 @@ class Hand:
         else:
             raise Exception("Hand is empty")
         return card
+    
+    @dispatch()
+    def return_suits(self):
+        return [card.get_suit() for card in self.cards]
+    
+    @dispatch(str)
+    def return_suits(self, suit):
+        return [card for card in self.cards if card.get_suit() == suit]
+
+
+    @dispatch()
+    def return_ranks(self):
+        return [card.get_rank() for card in self.cards]
+    
+    @dispatch(int)
+    def return_ranks(self, rank):
+        return [card for card in self.cards if card.get_rank() == rank]
 
 
     def __set_cards(self, card1: Card, card2: Card):

@@ -2,17 +2,17 @@
 class Card:
     
     
-    def __init__(self, suit, value):
+    def __init__(self, suit, rank):
         self.suit = suit
-        self.value = value
+        self.rank = rank
     
     def get_suit(self):
         return self.suit
     
-    def get_value(self):
-        return self.value
+    def get_rank(self):
+        return self.rank
     
     def __str__(self):
-        return str(self.value) + str(self.suit)
+        return str(self.rank) + str(self.suit)
         
     
