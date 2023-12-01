@@ -24,6 +24,11 @@ class Deck:
         card = [card for card in self.cards if card.get_suit() == suit and card.get_rank() == rank][0]
         self.cards.remove(card)
         return card
+    
+    @dispatch(str)
+    def remove_card(self, suit):
+        card = [card for card in self.cards if card.get_suit() == suit][0]
+        self.cards.remove(card)
 
     @dispatch(Card)
     def add_card(self, card):

@@ -13,12 +13,13 @@ if __name__ == "__main__":
     #print(game.deck)
     #print(game.hand)
 
-    game.add_board_card("C", 4)
+    #game.add_board_card("H", 4)
     game.add_board_card("C", 14)
     game.add_board_card("C", 12)
     game.add_board_card("H", 11)
 
-    game.flush_chance()
+    flush_chance = game.flush_chance()
+    print("FLUSH CHANCE:", flush_chance)
 
     print(game.deck)
     print(game.board)
