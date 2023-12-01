@@ -90,10 +90,13 @@ class Brain:
     def flush_chance(self):     # USING 2 ABOVE FUNCTIONS AND INFO ABOUT CARDS IN HAND AND BOARD
         """
         returns the chance of getting flush for given hand and board
-        1. how many cards of the suit are in the hand and on board
-        2. how many cards are to be drawn
-        3. calculate the odds of drawing the flush
+        1. check if there is a flush in hand||board -> return 1
+        2. if not, calculate the odds of drawing the flush
         """
+
+        # TODO:
+        # - combine hand and board
+        # - calculate for the whole hand||board not only for hand combinations
 
         result = 0
         hand_suits = set(self.hand.return_suits())      # unique suits in hand
@@ -118,42 +121,69 @@ class Brain:
     def pair_chance(self):
         """
         returns the chance of getting pair for given hand and board
-        1. check if there is a pair in hand
-        2. check if there is a pair on board
-        3. check if there is a pair in hand and on board
-        4. if 3 above are false, calculate the odds of getting pair for every card in hand and board
+        1. check if there is a pair in hand||board -> return 1
+        2. if not, calculate the odds of getting pair for every card in hand||board
         """
         ...
 
     def two_pair_chance(self):
         """
         returns the chance of getting two pair for given hand and board
-        1. check if there is any pair already, if so calculate getting pair for all others
-        2. if not, calculate the odds of getting two pair for every combination
+        1. check if there are two pair already -> return 1
+        2. check if there is any pair already -> calculate getting pair for all others
+        3. if not, calculate the odds of getting two pair for every combination
         """
         ...
 
     def three_of_a_kind_chance(self):
         """
         returns the chance of getting three of a kind for given hand and board
-        1. segregate all already drawn cards as values
-        2. for every single value calculate odds of getting another two
+        1. check if there is three of a kind already -> return 1
+        2. check if there is a pair for given hand||board -> calculate odds to get another one
+        3. for every single value calculate odds of getting another two
         """
         ...
 
     def straight_chance(self):
+        """
+        returns the chance of getting straight for given hand and board
+        1. ...
+        2. ...
+        """
         ...
 
     def full_house_chance(self):
+        """
+        returns the chance of getting full house for given hand and board
+        1. check if there is a full house already -> return 1
+        2. check if there is a pair in hand||board -> calculate odds of getting three of a kind
+        3. check if there is a three of a kind in hand||board -> calculate odds of getting pair
+        4. if not, calculate the odds of getting full house for every combination
+        """
         ...
 
     def four_of_a_kind_chance(self):
+        """
+        returns the chance of getting four of a kind for given hand and board
+        1. check if there is a four of a kind already -> return 1
+        2. for every existing card/cards calculate odds of getting another three/two/one
+        """
         ...
 
     def straight_flush_chance(self):
+        """
+        returns the chance of getting straight flush for given hand and board
+        1. ...
+        2. ...
+        """
         ...
 
     def royal_flush_chance(self):
+        """
+        returns the chance of getting royal flush for given hand and board
+        1. ...
+        2. ...
+        """
         ...
 
     
