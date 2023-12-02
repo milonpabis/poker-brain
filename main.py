@@ -8,7 +8,7 @@ if __name__ == "__main__":
     #print(game.board)
 
     game.add_hand_card("H", 2)
-    game.add_hand_card("H", 3)
+    game.add_hand_card("C", 3)
 
     #print(game.deck)
     #print(game.hand)
@@ -16,7 +16,7 @@ if __name__ == "__main__":
     #game.add_board_card("H", 4)
     game.add_board_card("C", 14)
     game.add_board_card("C", 12)
-    game.add_board_card("C", 11)
+    #game.add_board_card("C", 11)
     #game.add_board_card("C", 10)
 
     flush_chance = game.flush_chance()

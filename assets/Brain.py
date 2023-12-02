@@ -5,6 +5,7 @@ from assets.Board import Board
 from multipledispatch import dispatch
 from copy import deepcopy
 from typing import List
+from math import factorial
 
 class Brain:
 
@@ -124,16 +125,14 @@ class Brain:
         draws_left = 5 - len(self.board.get_cards())    # how many cards are to be drawn
 
         for s in unique_suits:                            # calculating the odds for each suit
-            copied_deck = deepcopy(self.deck)               # copying the current deck status
             temp = 1
             amount = 5 - len(self.return_suits(cards, s))   # how many do we need to get flush
             if amount < 1:                              # if we already have flush it will skip
                 return 1
-            if amount <= draws_left:                    # if we need to many it will skip
-                for _ in range(amount):                  
-                    temp *= self.calc_odds(copied_deck.get_cards(), suit=s)
-                    copied_deck.remove_card(s)                     # simulating removal of the card from the deck
-                result += temp
+            if amount > draws_left:
+                continue
+            temp = self.newton(13 - (5 - amount), amount) * self.newton(52 - amount - len(cards), draws_left - amount) / self.newton(52 - len(cards), draws_left)
+            result += temp
 
         return result
 
@@ -208,6 +207,11 @@ class Brain:
         2. ...
         """
         ...
+
+    
+
+    def newton(self, n, k):
+        return factorial(n) / (factorial(k) * factorial(n - k))
 
     
 
