@@ -16,7 +16,8 @@ if __name__ == "__main__":
     #game.add_board_card("H", 4)
     game.add_board_card("C", 14)
     game.add_board_card("C", 12)
-    game.add_board_card("H", 11)
+    game.add_board_card("C", 11)
+    #game.add_board_card("C", 10)
 
     flush_chance = game.flush_chance()
     print("FLUSH CHANCE:", flush_chance)
