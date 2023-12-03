@@ -108,7 +108,7 @@ class Brain:
         # 2. straight -> do
         # 3. straight flush -> do
         # 4. royal flush -> do
-        # 5. full house -> find bug and fix it ( sometimes is 2x higher than three of a kind )
+        # 5. full house -> find bug and fix it ( sometimes is 2x higher than three of a kind ) **DONE** ( PROBABLY :) )
         # 6. two pair -> find bug and fix it ( shows 1 even if there is only 1 pair)   **DONE**
         
         
@@ -126,7 +126,7 @@ class Brain:
         draws_left = 5 - len(self.board.get_cards())    # how many cards are to be drawn
 
         for s in unique_suits:                            # calculating the odds for each suit
-            s_drawn = len(self.return_suits(cards, s))
+            s_drawn = len(self.return_suits(cards, s))      # how many cards of this suit are already drawn
             temp = 1
             amount = 5 - s_drawn   # how many do we need to get flush
             if amount < 1:                              # if we already have flush it will skip
@@ -138,7 +138,7 @@ class Brain:
 
         return result
 
-
+    # TO UNDERSTAND LOGIC UNDERNEATH, CHECK THE FLUSH CHANCE FUNCTION !!!
 
     def pair_chance(self):
         """
@@ -237,6 +237,9 @@ class Brain:
         result = 0
         draws_left = 5 - len(self.board.get_cards())
 
+        r1_alones_done = []
+        r2_alones_done = []
+
         for r1 in self.deck.ranks:
             temp_list = set(self.deck.ranks) - set([r1])                 # same as in two pair, however we must calculate every pair ( pair&three != three&pair )
             for r2 in temp_list:
@@ -246,12 +249,21 @@ class Brain:
                 amount_r2 = 2 - r2_drawn
                 if amount_r1 < 1 and amount_r2 < 1:
                     return 1
-                if amount_r1 < 1:
-                    amount_r1 = 0
-                if amount_r2 < 1:
-                    amount_r2 = 0
                 if amount_r1 + amount_r2 > draws_left:
                     continue
+                if amount_r1 < 1:
+                    amount_r1 = 0
+                    if r2 in r2_alones_done:        # there was a fucking bug! 
+                        continue                    # simply:
+                    else:                           # for different pairs (r1, r2), when for ex. amount_r2 was 0 ( already fulfilled )
+                        r2_alones_done.append(r2)   # r1 was calculated alone, and if a similiar situation happened for the same r1
+                if amount_r2 < 1:                   # it calculated odds for r1 alone again
+                    amount_r2 = 0                   # so there are two lists, that store information about whether it was already 
+                    if r1 in r1_alones_done:        # calculated, if so -> skip, if not -> store
+                        continue                    
+                    else:                           
+                        r1_alones_done.append(r1)   
+                #print("FULL", "r1:", r1, "r2:", r2, "amount_r1:", amount_r1, "amount_r2:", amount_r2)
                 temp = self.newton(4 - r1_drawn, amount_r1) * self.newton(4 - r2_drawn, amount_r2) * self.newton(52 - amount_r1 - amount_r2 - len(cards), draws_left - amount_r1 - amount_r2) / self.newton(52 - len(cards), draws_left)
                 result += temp
         return result
