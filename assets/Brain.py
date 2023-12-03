@@ -109,7 +109,7 @@ class Brain:
         # 3. straight flush -> do
         # 4. royal flush -> do
         # 5. full house -> find bug and fix it ( sometimes is 2x higher than three of a kind )
-        # 6. two pair -> find bug and fix it ( shows 1 even if there is only 1 pair)
+        # 6. two pair -> find bug and fix it ( shows 1 even if there is only 1 pair)   **DONE**
         
         
     def flush_chance(self):     # USING 2 ABOVE FUNCTIONS AND INFO ABOUT CARDS IN HAND AND BOARD
@@ -126,13 +126,14 @@ class Brain:
         draws_left = 5 - len(self.board.get_cards())    # how many cards are to be drawn
 
         for s in unique_suits:                            # calculating the odds for each suit
+            s_drawn = len(self.return_suits(cards, s))
             temp = 1
-            amount = 5 - len(self.return_suits(cards, s))   # how many do we need to get flush
+            amount = 5 - s_drawn   # how many do we need to get flush
             if amount < 1:                              # if we already have flush it will skip
                 return 1
             if amount > draws_left:
                 continue
-            temp = self.newton(13 - (5 - amount), amount) * self.newton(52 - amount - len(cards), draws_left - amount) / self.newton(52 - len(cards), draws_left)
+            temp = self.newton(13 - s_drawn, amount) * self.newton(52 - amount - len(cards), draws_left - amount) / self.newton(52 - len(cards), draws_left)
             result += temp
 
         return result
@@ -150,12 +151,13 @@ class Brain:
         draws_left = 5 - len(self.board.get_cards())
 
         for r in self.deck.ranks:                               # simple combinatorics equation
-            amount = 2 - len(self.return_ranks(cards, r))
+            r_drawn = len(self.return_ranks(cards, r))
+            amount = 2 - r_drawn
             if amount < 1:
                 return 1
             if amount > draws_left:
                 continue
-            temp = self.newton(4 - (2 - amount), amount) * self.newton(52 - amount - len(cards), draws_left - amount) / self.newton(52 - len(cards), draws_left)
+            temp = self.newton(4 - r_drawn, amount) * self.newton(52 - amount - len(cards), draws_left - amount) / self.newton(52 - len(cards), draws_left)
             result += temp
         return result
     
@@ -176,9 +178,11 @@ class Brain:
             t.append(r1)                                        # don't want to calculate the same pair twice
             temp_list = set(self.deck.ranks) - set(t)           # temp list of ranks without the ones already calculated
             for r2 in temp_list:
-                amount_r1 = 2 - len(self.return_ranks(cards, r1))
-                amount_r2 = 2 - len(self.return_ranks(cards, r2))
-                if amount_r1 < 1 or amount_r2 < 1:
+                r1_drawn = len(self.return_ranks(cards, r1))
+                r2_drawn = len(self.return_ranks(cards, r2))
+                amount_r1 = 2 - r1_drawn
+                amount_r2 = 2 - r2_drawn
+                if amount_r1 < 1 and amount_r2 < 1:
                     return 1
                 if amount_r1 < 1:
                     amount_r1 = 0
@@ -186,7 +190,7 @@ class Brain:
                     amount_r2 = 0
                 if amount_r1 + amount_r2 > draws_left:
                     continue
-                temp = self.newton(4 - (2 - amount_r1), amount_r1) * self.newton(4 - (2 - amount_r2), amount_r2) * self.newton(52 - amount_r1 - amount_r2 - len(cards), draws_left - amount_r1 - amount_r2) / self.newton(52 - len(cards), draws_left)
+                temp = self.newton(4 - r1_drawn, amount_r1) * self.newton(4 - r2_drawn, amount_r2) * self.newton(52 - amount_r1 - amount_r2 - len(cards), draws_left - amount_r1 - amount_r2) / self.newton(52 - len(cards), draws_left)
                 result += temp
         return result
 
@@ -203,12 +207,13 @@ class Brain:
         draws_left = 5 - len(self.board.get_cards())
 
         for r in self.deck.ranks:
-            amount = 3 - len(self.return_ranks(cards, r))
+            r_drawn = len(self.return_ranks(cards, r))
+            amount = 3 - r_drawn
             if amount < 1:
                 return 1
             if amount > draws_left:
                 continue
-            temp = self.newton(4 - (3 - amount), amount) * self.newton(52 - amount - len(cards), draws_left - amount) / self.newton(52 - len(cards), draws_left)
+            temp = self.newton(4 - r_drawn, amount) * self.newton(52 - amount - len(cards), draws_left - amount) / self.newton(52 - len(cards), draws_left)
             result += temp
         return result
 
@@ -218,7 +223,7 @@ class Brain:
         1. ...
         2. ...
         """
-        ...
+        return "NOT IMPLEMENTED"
 
     def full_house_chance(self):
         """
@@ -235,8 +240,10 @@ class Brain:
         for r1 in self.deck.ranks:
             temp_list = set(self.deck.ranks) - set([r1])                 # same as in two pair, however we must calculate every pair ( pair&three != three&pair )
             for r2 in temp_list:
-                amount_r1 = 3 - len(self.return_ranks(cards, r1))
-                amount_r2 = 2 - len(self.return_ranks(cards, r2))
+                r1_drawn = len(self.return_ranks(cards, r1))
+                r2_drawn = len(self.return_ranks(cards, r2))
+                amount_r1 = 3 - r1_drawn
+                amount_r2 = 2 - r2_drawn
                 if amount_r1 < 1 and amount_r2 < 1:
                     return 1
                 if amount_r1 < 1:
@@ -245,7 +252,7 @@ class Brain:
                     amount_r2 = 0
                 if amount_r1 + amount_r2 > draws_left:
                     continue
-                temp = self.newton(4 - (3 - amount_r1), amount_r1) * self.newton(4 - (2 - amount_r2), amount_r2) * self.newton(52 - amount_r1 - amount_r2 - len(cards), draws_left - amount_r1 - amount_r2) / self.newton(52 - len(cards), draws_left)
+                temp = self.newton(4 - r1_drawn, amount_r1) * self.newton(4 - r2_drawn, amount_r2) * self.newton(52 - amount_r1 - amount_r2 - len(cards), draws_left - amount_r1 - amount_r2) / self.newton(52 - len(cards), draws_left)
                 result += temp
         return result
 
@@ -260,12 +267,13 @@ class Brain:
         draws_left = 5 - len(self.board.get_cards())
         
         for r in self.deck.ranks:
-            amount = 4 - len(self.return_ranks(cards, r))
+            r_drawn = len(self.return_ranks(cards, r))
+            amount = 4 - r_drawn
             if amount < 1:
                 return 1
             if amount > draws_left:
                 continue
-            temp = self.newton(4 - (4 - amount), amount) * self.newton(52 - amount - len(cards), draws_left - amount) / self.newton(52 - len(cards), draws_left)
+            temp = self.newton(4 - r_drawn, amount) * self.newton(52 - amount - len(cards), draws_left - amount) / self.newton(52 - len(cards), draws_left)
             result += temp
         
         return result
@@ -276,7 +284,7 @@ class Brain:
         1. ...
         2. ...
         """
-        ...
+        return "NOT IMPLEMENTED"
 
     def royal_flush_chance(self):
         """
@@ -284,7 +292,7 @@ class Brain:
         1. ...
         2. ...
         """
-        ...
+        return "NOT IMPLEMENTED"
 
     
 
