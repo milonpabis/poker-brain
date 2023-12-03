@@ -2,13 +2,14 @@ from assets.Card import Card
 import random as rd
 from multipledispatch import dispatch
 
-suits = ["H", "D", "S", "C"]
-ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+
 
 class Deck:
 
     def __init__(self) -> None:
-        self.cards = [Card(suit, rank) for suit in suits for rank in ranks]
+        self.suits = ["H", "D", "S", "C"]
+        self.ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+        self.cards = [Card(suit, rank) for suit in self.suits for rank in self.ranks]
         self.complete = True
 
     def shuffle(self):          # not really useful

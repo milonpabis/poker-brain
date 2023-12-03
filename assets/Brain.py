@@ -116,7 +116,7 @@ class Brain:
         # TODO:
         # - combine hand and board DONE
         # - calculate for the whole hand||board not only for hand combinations DONE
-        # - newton equation
+        # - newton equation DONE
 
         cards = self.hand.get_cards() + self.board.get_cards()    # combining hand and board
 
@@ -145,8 +145,19 @@ class Brain:
         2. if not, calculate the odds of getting pair for every card in hand||board
         """
         cards = self.hand.get_cards() + self.board.get_cards()
+        result = 0
+        draws_left = 5 - len(self.board.get_cards())
 
-        ...
+        for r in self.deck.ranks:
+            amount = 2 - len(self.return_ranks(cards, r))
+            if amount < 1:
+                return 1
+            if amount > draws_left:
+                continue
+            temp = self.newton(4 - (2 - amount), amount) * self.newton(52 - amount - len(cards), draws_left - amount) / self.newton(52 - len(cards), draws_left)
+            result += temp
+        return result
+    
 
     def two_pair_chance(self):
         """
@@ -155,7 +166,28 @@ class Brain:
         2. check if there is any pair already -> calculate getting pair for all others
         3. if not, calculate the odds of getting two pair for every combination
         """
-        ...
+        cards = self.hand.get_cards() + self.board.get_cards()
+        result = 0
+        draws_left = 5 - len(self.board.get_cards())
+        # TODO: 1. check if there are two pair already -> return 1
+
+        # TODO: 2. check if there is any pair already -> calculate getting pair for all others
+
+        # TODO: 3. if not, calculate the odds of getting two pair for every combination
+        t = []
+        for r1 in self.deck.ranks:
+            t.append(r1)
+            temp_list = set(self.deck.ranks) - set(t)
+            for r2 in temp_list:
+                amount_r1 = 2 - len(self.return_ranks(cards, r1))
+                amount_r2 = 2 - len(self.return_ranks(cards, r2))
+                if amount_r1 < 1 and amount_r2 < 1:
+                    return 1
+                if amount_r1 + amount_r2 > draws_left:
+                    continue
+                temp = self.newton(4 - (2 - amount_r1), amount_r1) * self.newton(4 - (2 - amount_r2), amount_r2) * self.newton(52 - amount_r1 - amount_r2 - len(cards), draws_left - amount_r1 - amount_r2) / self.newton(52 - len(cards), draws_left)
+                result += temp
+        return result
 
     def three_of_a_kind_chance(self):
         """
@@ -164,6 +196,17 @@ class Brain:
         2. check if there is a pair for given hand||board -> calculate odds to get another one
         3. for every single value calculate odds of getting another two
         """
+        cards = self.hand.get_cards() + self.board.get_cards()
+        result = 0
+        unique_ranks = set(self.return_ranks(cards))
+        draws_left = 5 - len(self.board.get_cards())
+        # TODO: 1. check if there is three of a kind already -> return 1
+
+        # TODO: 2. check if there is a pair for given hand||board -> calculate odds to get another one
+
+        # TODO: 3. for every single value calculate odds of getting another two
+
+        # TODO: 4. if not, calculate the odds of getting three of a kind for every combination
         ...
 
     def straight_chance(self):
