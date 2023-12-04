@@ -1,4 +1,5 @@
 from assets.Brain import Brain
+from gui import MainWindow, QApplication
 
 if __name__ == "__main__":
     
@@ -41,4 +42,11 @@ if __name__ == "__main__":
     print(game.deck)
     print(game.board)
     print(game.hand)
+
+    app = QApplication()
+    window = MainWindow()
+    window.show()
+    app.exec()
+
+    
 
