@@ -15,27 +15,243 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
-    QListWidget, QListWidgetItem, QMainWindow, QPushButton,
-    QSizePolicy, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QGroupBox, QHBoxLayout,
+    QLabel, QListWidget, QListWidgetItem, QMainWindow,
+    QPushButton, QSizePolicy, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1000, 600)
+        MainWindow.resize(1300, 600)
+        MainWindow.setMinimumSize(QSize(1300, 600))
+        MainWindow.setMaximumSize(QSize(1300, 600))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.centralwidget.setMinimumSize(QSize(1000, 600))
-        self.centralwidget.setMaximumSize(QSize(1000, 600))
+        self.centralwidget.setMinimumSize(QSize(1300, 600))
+        self.centralwidget.setMaximumSize(QSize(1300, 600))
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.frame_13 = QFrame(self.centralwidget)
+        self.frame_13.setObjectName(u"frame_13")
+        self.frame_13.setMinimumSize(QSize(300, 0))
+        self.frame_13.setMaximumSize(QSize(300, 16777215))
+        self.frame_13.setFrameShape(QFrame.Box)
+        self.frame_13.setFrameShadow(QFrame.Raised)
+        self.frame_13.setLineWidth(0)
+        self.verticalLayout_6 = QVBoxLayout(self.frame_13)
+        self.verticalLayout_6.setSpacing(0)
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.groupBox = QGroupBox(self.frame_13)
+        self.groupBox.setObjectName(u"groupBox")
+        font = QFont()
+        font.setFamilies([u"Cooper Black"])
+        font.setPointSize(10)
+        font.setBold(False)
+        self.groupBox.setFont(font)
+        self.groupBox.setStyleSheet(u"background-color: rgb(0, 158, 253);\n"
+"color: white;")
+        self.groupBox.setAlignment(Qt.AlignCenter)
+        self.groupBox.setFlat(False)
+        self.verticalLayout_7 = QVBoxLayout(self.groupBox)
+        self.verticalLayout_7.setSpacing(3)
+        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
+        self.verticalLayout_7.setContentsMargins(3, 3, 3, 3)
+        self.l_highOdd = QLabel(self.groupBox)
+        self.l_highOdd.setObjectName(u"l_highOdd")
+        self.l_highOdd.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_7.addWidget(self.l_highOdd)
+
+
+        self.verticalLayout_6.addWidget(self.groupBox)
+
+        self.groupBox_2 = QGroupBox(self.frame_13)
+        self.groupBox_2.setObjectName(u"groupBox_2")
+        self.groupBox_2.setFont(font)
+        self.groupBox_2.setStyleSheet(u"background-color: rgb(0, 136, 214);\n"
+"background-color: rgb(0, 146, 231);\n"
+"color: white;")
+        self.groupBox_2.setAlignment(Qt.AlignCenter)
+        self.verticalLayout_8 = QVBoxLayout(self.groupBox_2)
+        self.verticalLayout_8.setSpacing(3)
+        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
+        self.verticalLayout_8.setContentsMargins(3, 3, 3, 3)
+        self.l_pairOdd = QLabel(self.groupBox_2)
+        self.l_pairOdd.setObjectName(u"l_pairOdd")
+        self.l_pairOdd.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_8.addWidget(self.l_pairOdd)
+
+
+        self.verticalLayout_6.addWidget(self.groupBox_2)
+
+        self.groupBox_7 = QGroupBox(self.frame_13)
+        self.groupBox_7.setObjectName(u"groupBox_7")
+        self.groupBox_7.setFont(font)
+        self.groupBox_7.setStyleSheet(u"background-color: rgb(0, 143, 226);\n"
+"background-color: rgb(0, 129, 203);\n"
+"color: white;")
+        self.groupBox_7.setAlignment(Qt.AlignCenter)
+        self.verticalLayout_9 = QVBoxLayout(self.groupBox_7)
+        self.verticalLayout_9.setSpacing(3)
+        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
+        self.verticalLayout_9.setContentsMargins(3, 3, 3, 3)
+        self.l_twoPairOdd = QLabel(self.groupBox_7)
+        self.l_twoPairOdd.setObjectName(u"l_twoPairOdd")
+        self.l_twoPairOdd.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_9.addWidget(self.l_twoPairOdd)
+
+
+        self.verticalLayout_6.addWidget(self.groupBox_7)
+
+        self.groupBox_3 = QGroupBox(self.frame_13)
+        self.groupBox_3.setObjectName(u"groupBox_3")
+        self.groupBox_3.setFont(font)
+        self.groupBox_3.setStyleSheet(u"background-color: rgb(0, 98, 154);\n"
+"color: white;")
+        self.groupBox_3.setAlignment(Qt.AlignCenter)
+        self.verticalLayout_10 = QVBoxLayout(self.groupBox_3)
+        self.verticalLayout_10.setSpacing(3)
+        self.verticalLayout_10.setObjectName(u"verticalLayout_10")
+        self.verticalLayout_10.setContentsMargins(3, 3, 3, 3)
+        self.l_ThreeOdd = QLabel(self.groupBox_3)
+        self.l_ThreeOdd.setObjectName(u"l_ThreeOdd")
+        self.l_ThreeOdd.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_10.addWidget(self.l_ThreeOdd)
+
+
+        self.verticalLayout_6.addWidget(self.groupBox_3)
+
+        self.groupBox_8 = QGroupBox(self.frame_13)
+        self.groupBox_8.setObjectName(u"groupBox_8")
+        self.groupBox_8.setFont(font)
+        self.groupBox_8.setStyleSheet(u"background-color: rgb(139, 0, 253);\n"
+"color: white;")
+        self.groupBox_8.setAlignment(Qt.AlignCenter)
+        self.verticalLayout_11 = QVBoxLayout(self.groupBox_8)
+        self.verticalLayout_11.setSpacing(3)
+        self.verticalLayout_11.setObjectName(u"verticalLayout_11")
+        self.verticalLayout_11.setContentsMargins(3, 3, 3, 3)
+        self.l_straightOdd = QLabel(self.groupBox_8)
+        self.l_straightOdd.setObjectName(u"l_straightOdd")
+        self.l_straightOdd.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_11.addWidget(self.l_straightOdd)
+
+
+        self.verticalLayout_6.addWidget(self.groupBox_8)
+
+        self.groupBox_4 = QGroupBox(self.frame_13)
+        self.groupBox_4.setObjectName(u"groupBox_4")
+        self.groupBox_4.setFont(font)
+        self.groupBox_4.setStyleSheet(u"background-color: rgb(121, 0, 226);\n"
+"color: white;")
+        self.groupBox_4.setAlignment(Qt.AlignCenter)
+        self.verticalLayout_12 = QVBoxLayout(self.groupBox_4)
+        self.verticalLayout_12.setSpacing(3)
+        self.verticalLayout_12.setObjectName(u"verticalLayout_12")
+        self.verticalLayout_12.setContentsMargins(3, 3, 3, 3)
+        self.l_flushOdd = QLabel(self.groupBox_4)
+        self.l_flushOdd.setObjectName(u"l_flushOdd")
+        self.l_flushOdd.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_12.addWidget(self.l_flushOdd)
+
+
+        self.verticalLayout_6.addWidget(self.groupBox_4)
+
+        self.groupBox_10 = QGroupBox(self.frame_13)
+        self.groupBox_10.setObjectName(u"groupBox_10")
+        self.groupBox_10.setFont(font)
+        self.groupBox_10.setStyleSheet(u"background-color: rgb(102, 0, 191);\n"
+"color: white;")
+        self.groupBox_10.setAlignment(Qt.AlignCenter)
+        self.verticalLayout_13 = QVBoxLayout(self.groupBox_10)
+        self.verticalLayout_13.setSpacing(3)
+        self.verticalLayout_13.setObjectName(u"verticalLayout_13")
+        self.verticalLayout_13.setContentsMargins(3, 3, 3, 3)
+        self.l_fullOdd = QLabel(self.groupBox_10)
+        self.l_fullOdd.setObjectName(u"l_fullOdd")
+        self.l_fullOdd.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_13.addWidget(self.l_fullOdd)
+
+
+        self.verticalLayout_6.addWidget(self.groupBox_10)
+
+        self.groupBox_9 = QGroupBox(self.frame_13)
+        self.groupBox_9.setObjectName(u"groupBox_9")
+        self.groupBox_9.setFont(font)
+        self.groupBox_9.setStyleSheet(u"background-color: rgb(84, 0, 157);\n"
+"color: white;")
+        self.groupBox_9.setAlignment(Qt.AlignCenter)
+        self.verticalLayout_14 = QVBoxLayout(self.groupBox_9)
+        self.verticalLayout_14.setSpacing(3)
+        self.verticalLayout_14.setObjectName(u"verticalLayout_14")
+        self.verticalLayout_14.setContentsMargins(3, 3, 3, 3)
+        self.l_fourOdd = QLabel(self.groupBox_9)
+        self.l_fourOdd.setObjectName(u"l_fourOdd")
+        self.l_fourOdd.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_14.addWidget(self.l_fourOdd)
+
+
+        self.verticalLayout_6.addWidget(self.groupBox_9)
+
+        self.groupBox_5 = QGroupBox(self.frame_13)
+        self.groupBox_5.setObjectName(u"groupBox_5")
+        self.groupBox_5.setFont(font)
+        self.groupBox_5.setStyleSheet(u"background-color: rgb(158, 0, 68);\n"
+"color: white;")
+        self.groupBox_5.setAlignment(Qt.AlignCenter)
+        self.verticalLayout_15 = QVBoxLayout(self.groupBox_5)
+        self.verticalLayout_15.setSpacing(3)
+        self.verticalLayout_15.setObjectName(u"verticalLayout_15")
+        self.verticalLayout_15.setContentsMargins(3, 3, 3, 3)
+        self.l_straightFlushOdd = QLabel(self.groupBox_5)
+        self.l_straightFlushOdd.setObjectName(u"l_straightFlushOdd")
+        self.l_straightFlushOdd.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_15.addWidget(self.l_straightFlushOdd)
+
+
+        self.verticalLayout_6.addWidget(self.groupBox_5)
+
+        self.groupBox_6 = QGroupBox(self.frame_13)
+        self.groupBox_6.setObjectName(u"groupBox_6")
+        self.groupBox_6.setFont(font)
+        self.groupBox_6.setStyleSheet(u"background-color: rgb(127, 0, 54);\n"
+"color: white;")
+        self.groupBox_6.setAlignment(Qt.AlignCenter)
+        self.verticalLayout_16 = QVBoxLayout(self.groupBox_6)
+        self.verticalLayout_16.setSpacing(3)
+        self.verticalLayout_16.setObjectName(u"verticalLayout_16")
+        self.verticalLayout_16.setContentsMargins(3, 3, 3, 3)
+        self.l_royalFlushOdd = QLabel(self.groupBox_6)
+        self.l_royalFlushOdd.setObjectName(u"l_royalFlushOdd")
+        self.l_royalFlushOdd.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_16.addWidget(self.l_royalFlushOdd)
+
+
+        self.verticalLayout_6.addWidget(self.groupBox_6)
+
+
+        self.horizontalLayout.addWidget(self.frame_13)
+
         self.frame = QFrame(self.centralwidget)
         self.frame.setObjectName(u"frame")
+        self.frame.setMinimumSize(QSize(700, 0))
+        self.frame.setMaximumSize(QSize(700, 16777215))
         self.frame.setFrameShape(QFrame.NoFrame)
-        self.frame.setFrameShadow(QFrame.Raised)
+        self.frame.setFrameShadow(QFrame.Plain)
+        self.frame.setLineWidth(0)
         self.verticalLayout = QVBoxLayout(self.frame)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -52,9 +268,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.frame_6 = QFrame(self.frame_3)
         self.frame_6.setObjectName(u"frame_6")
-        self.frame_6.setStyleSheet(u"background-color: rgb(20, 223, 44);\n"
-"background-color: rgb(66, 175, 27);\n"
-"")
+        self.frame_6.setStyleSheet(u"background-color: rgb(66, 175, 27);\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0.466, x2:1, y2:0.483, stop:0 rgba(2, 136, 24, 255), stop:1 rgba(37, 189, 35, 255));")
         self.frame_6.setFrameShape(QFrame.NoFrame)
         self.frame_6.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_3 = QHBoxLayout(self.frame_6)
@@ -134,7 +349,8 @@ class Ui_MainWindow(object):
         self.frame_9.setMinimumSize(QSize(300, 0))
         self.frame_9.setMaximumSize(QSize(300, 16777215))
         self.frame_9.setStyleSheet(u"background-color: rgb(20, 223, 44);\n"
-"background-color: rgb(66, 175, 27);")
+"background-color: rgb(66, 175, 27);\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0.466, x2:1, y2:0.483, stop:0 rgba(37, 189, 35, 255), stop:1 rgba(2, 136, 24, 255));")
         self.frame_9.setFrameShape(QFrame.NoFrame)
         self.frame_9.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_4 = QHBoxLayout(self.frame_9)
@@ -191,7 +407,8 @@ class Ui_MainWindow(object):
 
         self.frame_4 = QFrame(self.frame)
         self.frame_4.setObjectName(u"frame_4")
-        self.frame_4.setStyleSheet(u"background-color: rgb(66, 175, 27);")
+        self.frame_4.setStyleSheet(u"background-color: rgb(66, 175, 27);\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0.466, x2:1, y2:0.483, stop:0 rgba(2, 136, 24, 255), stop:0.65 rgba(37, 189, 35, 255), stop:1 rgba(2, 136, 24, 255));")
         self.frame_4.setFrameShape(QFrame.NoFrame)
         self.frame_4.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_5 = QHBoxLayout(self.frame_4)
@@ -223,21 +440,50 @@ class Ui_MainWindow(object):
         self.frame_5.setObjectName(u"frame_5")
         self.frame_5.setMinimumSize(QSize(0, 50))
         self.frame_5.setMaximumSize(QSize(16777215, 50))
-        self.frame_5.setStyleSheet(u"background-color: rgb(66, 175, 27);")
+        self.frame_5.setStyleSheet(u"background-color: rgb(66, 175, 27);\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0.466, x2:1, y2:0.483, stop:0 rgba(2, 136, 24, 255), stop:0.65 rgba(37, 189, 35, 255), stop:1 rgba(2, 136, 24, 255));")
         self.frame_5.setFrameShape(QFrame.NoFrame)
         self.frame_5.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_3 = QVBoxLayout(self.frame_5)
-        self.verticalLayout_3.setSpacing(2)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.verticalLayout_3.setContentsMargins(250, 0, 250, 0)
+        self.horizontalLayout_9 = QHBoxLayout(self.frame_5)
+        self.horizontalLayout_9.setSpacing(2)
+        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.horizontalLayout_9.setContentsMargins(200, 0, 250, 0)
+        self.btReset = QPushButton(self.frame_5)
+        self.btReset.setObjectName(u"btReset")
+        self.btReset.setMinimumSize(QSize(50, 0))
+        self.btReset.setMaximumSize(QSize(50, 16777215))
+        font1 = QFont()
+        font1.setFamilies([u"Cooper Black"])
+        font1.setPointSize(10)
+        self.btReset.setFont(font1)
+        self.btReset.setStyleSheet(u"QPushButton {\n"
+"border: 3px solid black;\n"
+"background-color: rgb(89, 255, 28);\n"
+"border-radius: 5px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"border: 2px solid black;\n"
+"background-color: rgb(89, 255, 28);\n"
+"border-radius: 7px;\n"
+"}\n"
+"\n"
+"QPushButton:clicked {\n"
+"border: 2px solid black;\n"
+"background-color: rgb(13, 173, 26);\n"
+"border-radius: 5px;\n"
+"}")
+
+        self.horizontalLayout_9.addWidget(self.btReset)
+
         self.btCalculate = QPushButton(self.frame_5)
         self.btCalculate.setObjectName(u"btCalculate")
         self.btCalculate.setMinimumSize(QSize(200, 30))
         self.btCalculate.setMaximumSize(QSize(200, 30))
-        font = QFont()
-        font.setFamilies([u"Cooper Black"])
-        font.setPointSize(16)
-        self.btCalculate.setFont(font)
+        font2 = QFont()
+        font2.setFamilies([u"Cooper Black"])
+        font2.setPointSize(16)
+        self.btCalculate.setFont(font2)
         self.btCalculate.setStyleSheet(u"QPushButton {\n"
 "border: 3px solid black;\n"
 "background-color: rgb(89, 255, 28);\n"
@@ -257,7 +503,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
 
-        self.verticalLayout_3.addWidget(self.btCalculate)
+        self.horizontalLayout_9.addWidget(self.btCalculate)
 
 
         self.verticalLayout.addWidget(self.frame_5)
@@ -271,7 +517,8 @@ class Ui_MainWindow(object):
         self.frame_2.setMaximumSize(QSize(300, 16777215))
         self.frame_2.setStyleSheet(u"")
         self.frame_2.setFrameShape(QFrame.NoFrame)
-        self.frame_2.setFrameShadow(QFrame.Raised)
+        self.frame_2.setFrameShadow(QFrame.Plain)
+        self.frame_2.setLineWidth(0)
         self.verticalLayout_5 = QVBoxLayout(self.frame_2)
         self.verticalLayout_5.setSpacing(1)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
@@ -316,6 +563,26 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"High Card", None))
+        self.l_highOdd.setText(QCoreApplication.translate("MainWindow", u"---", None))
+        self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"Pair", None))
+        self.l_pairOdd.setText(QCoreApplication.translate("MainWindow", u"---", None))
+        self.groupBox_7.setTitle(QCoreApplication.translate("MainWindow", u"Two Pair", None))
+        self.l_twoPairOdd.setText(QCoreApplication.translate("MainWindow", u"---", None))
+        self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"Three of a Kind", None))
+        self.l_ThreeOdd.setText(QCoreApplication.translate("MainWindow", u"---", None))
+        self.groupBox_8.setTitle(QCoreApplication.translate("MainWindow", u"Straight", None))
+        self.l_straightOdd.setText(QCoreApplication.translate("MainWindow", u"---", None))
+        self.groupBox_4.setTitle(QCoreApplication.translate("MainWindow", u"Flush", None))
+        self.l_flushOdd.setText(QCoreApplication.translate("MainWindow", u"---", None))
+        self.groupBox_10.setTitle(QCoreApplication.translate("MainWindow", u"Full House", None))
+        self.l_fullOdd.setText(QCoreApplication.translate("MainWindow", u"---", None))
+        self.groupBox_9.setTitle(QCoreApplication.translate("MainWindow", u"Four of a Kind", None))
+        self.l_fourOdd.setText(QCoreApplication.translate("MainWindow", u"---", None))
+        self.groupBox_5.setTitle(QCoreApplication.translate("MainWindow", u"Straight Flush", None))
+        self.l_straightFlushOdd.setText(QCoreApplication.translate("MainWindow", u"---", None))
+        self.groupBox_6.setTitle(QCoreApplication.translate("MainWindow", u"Royal Flush", None))
+        self.l_royalFlushOdd.setText(QCoreApplication.translate("MainWindow", u"---", None))
         self.lbBoard1.setText("")
         self.lbBoard2.setText("")
         self.lbBoard3.setText("")
@@ -323,6 +590,7 @@ class Ui_MainWindow(object):
         self.lbBoard5.setText("")
         self.lbHand1.setText("")
         self.lbHand2.setText("")
+        self.btReset.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
         self.btCalculate.setText(QCoreApplication.translate("MainWindow", u"Calculate", None))
     # retranslateUi
 

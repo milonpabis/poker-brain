@@ -1,6 +1,7 @@
 from assets.UI.MainWindow import Ui_MainWindow
 from PySide6.QtWidgets import QMainWindow, QApplication
 from assets.UI.CardView import CardView, QListWidgetItem, QPoint, Qt, QListWidget
+from assets.Brain import Brain
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -11,6 +12,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setAcceptDrops(True)
         self.setWindowTitle("Poker Odds Calculator")
         self.btCalculate.clicked.connect(self.calculate)
+        self.btReset.clicked.connect(self.reset)
 
         self.listHearts.setFlow(QListWidget.LeftToRight)
         self.listHearts.setSpacing(10)
@@ -23,22 +25,63 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.listClubs.setFlow(QListWidget.LeftToRight)
         self.listClubs.setSpacing(10)
-        
-        
 
-        self.card1 = CardView("D3")
+        self.brain = Brain()
 
-        item = QListWidgetItem()
-        item.setSizeHint(self.card1.sizeHint())
-        self.listHearts.addItem(item)
-        self.listHearts.setItemWidget(item, self.card1)
+        self.initialize_board()
 
-
-
-
+    def reset(self):
+        #self.brain.reset()
+        self.initialize_board()
+        print("debug: reset")
 
     def calculate(self):
         print("debug: calculate")
+
+    def initialize_board(self):
+        self.lbBoard1.setText("")
+        self.lbBoard2.setText("")
+        self.lbBoard3.setText("")
+        self.lbBoard4.setText("")
+        self.lbBoard5.setText("")
+        self.lbHand1.setText("")
+        self.lbHand2.setText("")
+
+        self.l_highOdd.setText("---")
+        self.l_pairOdd.setText("---")
+        self.l_twoPairOdd.setText("---")
+        self.l_ThreeOdd.setText("---")
+        self.l_straightOdd.setText("---")
+        self.l_flushOdd.setText("---")
+        self.l_fullOdd.setText("---")
+        self.l_fourOdd.setText("---")
+        self.l_straightFlushOdd.setText("---")
+        self.l_royalFlushOdd.setText("---")
+
+        self.listHearts.clear()
+        self.listClubs.clear()
+        self.listDiamonds.clear()
+        self.listSpades.clear()
+
+        cards = self.brain.deck.get_cards()
+        for card in cards:
+            suit = card.get_suit()
+            rank = card.get_rank()
+            card = CardView(f"{suit}{rank}")
+            item = QListWidgetItem()
+            item.setSizeHint(card.sizeHint())
+            if suit == "H":
+                self.listHearts.addItem(item)
+                self.listHearts.setItemWidget(item, card)
+            elif suit == "D":
+                self.listDiamonds.addItem(item)
+                self.listDiamonds.setItemWidget(item, card)
+            elif suit == "S":
+                self.listSpades.addItem(item)
+                self.listSpades.setItemWidget(item, card)
+            elif suit == "C":
+                self.listClubs.addItem(item)
+                self.listClubs.setItemWidget(item, card)
 
     def dragEnterEvent(self, event):
         event.accept()

@@ -7,13 +7,12 @@ class CardView(QLabel):
 
     def __init__(self, text, parent=None):
         super().__init__(text, parent)
-        pixmap = QPixmap(f"F:/Desktop/repos/sandbox/poker/images/S10.png")
+        pixmap = QPixmap(f"images/{text}.png")
         self.value = text
         if pixmap.isNull():
             print("null")
         else:
             self.setPixmap(pixmap)
-            print('git')
         self.setFixedHeight(120)
         self.setFixedWidth(80)
         self.setScaledContents(True)
