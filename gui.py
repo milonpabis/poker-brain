@@ -13,22 +13,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btCalculate.clicked.connect(self.calculate)
 
         self.listHearts.setFlow(QListWidget.LeftToRight)
-        self.listHearts.setWrapping(True)
+        self.listHearts.setSpacing(10)
+
+        self.listDiamonds.setFlow(QListWidget.LeftToRight)
+        self.listDiamonds.setSpacing(10)
+
+        self.listSpades.setFlow(QListWidget.LeftToRight)
+        self.listSpades.setSpacing(10)
+
+        self.listClubs.setFlow(QListWidget.LeftToRight)
+        self.listClubs.setSpacing(10)
         
         
 
         self.card1 = CardView("D3")
-        self.card2 = CardView("S10")
 
         item = QListWidgetItem()
         item.setSizeHint(self.card1.sizeHint())
         self.listHearts.addItem(item)
         self.listHearts.setItemWidget(item, self.card1)
 
-        item1 = QListWidgetItem()
-        item1.setSizeHint(self.card2.sizeHint())
-        self.listHearts.addItem(item1)
-        self.listHearts.setItemWidget(item1, self.card2)
 
 
 

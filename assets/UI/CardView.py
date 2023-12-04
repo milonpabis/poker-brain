@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QFrame, QLabel, QVBoxLayout, QHBoxLayout, QWidget, QListWidgetItem, QListWidget
-from PySide6.QtCore import QMimeData, Qt, QByteArray, QDataStream, QIODevice, QPoint
+from PySide6.QtCore import QMimeData, Qt, QByteArray, QDataStream, QIODevice, QPoint, QSize
 from PySide6.QtGui import QPixmap, QDrag
 
 
@@ -7,7 +7,7 @@ class CardView(QLabel):
 
     def __init__(self, text, parent=None):
         super().__init__(text, parent)
-        pixmap = QPixmap(f"../../images/{text}.png")
+        pixmap = QPixmap(f"F:/Desktop/repos/sandbox/poker/images/S10.png")
         self.value = text
         if pixmap.isNull():
             print("null")
@@ -25,3 +25,6 @@ class CardView(QLabel):
             mime_data = QMimeData()
             drag.setMimeData(mime_data)
             drag.exec_(Qt.MoveAction)
+    
+    def sizeHint(self):
+        return QSize(60, 80)
