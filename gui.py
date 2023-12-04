@@ -1,6 +1,6 @@
 from assets.UI.MainWindow import Ui_MainWindow
 from PySide6.QtWidgets import QMainWindow, QApplication
-from assets.UI.CardView import CardView, QListWidgetItem, QPoint, Qt, QListWidget
+from assets.UI.CardView import CardView, QListWidgetItem, QPoint, Qt, QListWidget, QPixmap
 from assets.Brain import Brain
 
 
@@ -26,6 +26,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.listClubs.setFlow(QListWidget.LeftToRight)
         self.listClubs.setSpacing(10)
 
+        self.lbBoard1.setScaledContents(True)
+        self.lbBoard2.setScaledContents(True)
+        self.lbBoard3.setScaledContents(True)
+        self.lbBoard4.setScaledContents(True)
+        self.lbBoard5.setScaledContents(True)
+        self.lbHand1.setScaledContents(True)
+        self.lbHand2.setScaledContents(True)
+
         self.brain = Brain()
 
         self.initialize_board()
@@ -46,6 +54,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.lbBoard5.setText("")
         self.lbHand1.setText("")
         self.lbHand2.setText("")
+
+        self.lbBoard1.setPixmap(QPixmap())
+        self.lbBoard2.setPixmap(QPixmap())
+        self.lbBoard3.setPixmap(QPixmap())
+        self.lbBoard4.setPixmap(QPixmap())
+        self.lbBoard5.setPixmap(QPixmap())
+        self.lbHand1.setPixmap(QPixmap())
+        self.lbHand2.setPixmap(QPixmap())
 
         self.l_highOdd.setText("---")
         self.l_pairOdd.setText("---")
@@ -101,30 +117,39 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if lb1_cor.x() > 0 and lb1_cor.y() > 0 and lb1_cor.x() < 100 and lb1_cor.y() < 150:
             print("debug: dropEvent")
             self.lbBoard1.setText(widget.value)
+            self.lbBoard1.setPixmap(widget.pixmap())
+            print(widget)
+            self.listHearts.removeItemWidget(widget)
 
         if lb2_cor.x() > 0 and lb2_cor.y() > 0 and lb2_cor.x() < 100 and lb2_cor.y() < 150:
             print("debug: dropEvent")
             self.lbBoard2.setText(widget.value)
+            self.lbBoard2.setPixmap(widget.pixmap())
 
         if lb3_cor.x() > 0 and lb3_cor.y() > 0 and lb3_cor.x() < 100 and lb3_cor.y() < 150:
             print("debug: dropEvent")
             self.lbBoard3.setText(widget.value)
+            self.lbBoard3.setPixmap(widget.pixmap())
 
         if lb4_cor.x() > 0 and lb4_cor.y() > 0 and lb4_cor.x() < 100 and lb4_cor.y() < 150:
             print("debug: dropEvent")
             self.lbBoard4.setText(widget.value)
+            self.lbBoard4.setPixmap(widget.pixmap())
 
         if lb5_cor.x() > 0 and lb5_cor.y() > 0 and lb5_cor.x() < 100 and lb5_cor.y() < 150:
             print("debug: dropEvent")
             self.lbBoard5.setText(widget.value)
+            self.lbBoard5.setPixmap(widget.pixmap())
         
         if lh1_cor.x() > 0 and lh1_cor.y() > 0 and lh1_cor.x() < 100 and lh1_cor.y() < 150:
             print("debug: dropEvent")
             self.lbHand1.setText(widget.value)
+            self.lbHand1.setPixmap(widget.pixmap())
 
         if lh2_cor.x() > 0 and lh2_cor.y() > 0 and lh2_cor.x() < 100 and lh2_cor.y() < 150:
             print("debug: dropEvent")
             self.lbHand2.setText(widget.value)
+            self.lbHand2.setPixmap(widget.pixmap())
         
         event.accept()
 

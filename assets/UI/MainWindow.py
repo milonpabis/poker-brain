@@ -291,7 +291,8 @@ class Ui_MainWindow(object):
         self.lbBoard1.setMinimumSize(QSize(0, 150))
         self.lbBoard1.setMaximumSize(QSize(16777215, 150))
         self.lbBoard1.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"border: 3px solid black\n"
+"border: 2px solid black;\n"
+"border-radius: 3px;\n"
 "")
 
         self.verticalLayout_2.addWidget(self.lbBoard1)
@@ -313,7 +314,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.lbBoard2 = QLabel(self.frame_8)
         self.lbBoard2.setObjectName(u"lbBoard2")
-        self.lbBoard2.setStyleSheet(u"border: 3px solid black;")
+        self.lbBoard2.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"border: 2px solid black;\n"
+"border-radius: 3px;")
 
         self.verticalLayout_4.addWidget(self.lbBoard2)
 
@@ -334,7 +337,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.lbBoard3 = QLabel(self.frame_10)
         self.lbBoard3.setObjectName(u"lbBoard3")
-        self.lbBoard3.setStyleSheet(u"border: 3px solid black;")
+        self.lbBoard3.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"border: 2px solid black;\n"
+"border-radius: 3px;")
 
         self.horizontalLayout_6.addWidget(self.lbBoard3)
 
@@ -371,7 +376,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8.setContentsMargins(0, 0, 0, 0)
         self.lbBoard4 = QLabel(self.frame_11)
         self.lbBoard4.setObjectName(u"lbBoard4")
-        self.lbBoard4.setStyleSheet(u"border: 3px solid black;")
+        self.lbBoard4.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"border: 2px solid black;\n"
+"border-radius: 3px;")
 
         self.horizontalLayout_8.addWidget(self.lbBoard4)
 
@@ -392,7 +399,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.setContentsMargins(0, 0, 0, 0)
         self.lbBoard5 = QLabel(self.frame_12)
         self.lbBoard5.setObjectName(u"lbBoard5")
-        self.lbBoard5.setStyleSheet(u"border: 3px solid black;")
+        self.lbBoard5.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"border: 2px solid black;\n"
+"border-radius: 3px;")
 
         self.horizontalLayout_7.addWidget(self.lbBoard5)
 
@@ -420,7 +429,8 @@ class Ui_MainWindow(object):
         self.lbHand1.setMinimumSize(QSize(100, 150))
         self.lbHand1.setMaximumSize(QSize(100, 150))
         self.lbHand1.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"border: 3px solid black;")
+"border: 2px solid black;\n"
+"border-radius: 3px;")
 
         self.horizontalLayout_5.addWidget(self.lbHand1)
 
@@ -429,7 +439,8 @@ class Ui_MainWindow(object):
         self.lbHand2.setMinimumSize(QSize(100, 150))
         self.lbHand2.setMaximumSize(QSize(100, 150))
         self.lbHand2.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"border: 3px solid black;")
+"border: 2px solid black;\n"
+"border-radius: 3px;")
 
         self.horizontalLayout_5.addWidget(self.lbHand2)
 
@@ -485,19 +496,19 @@ class Ui_MainWindow(object):
         font2.setPointSize(16)
         self.btCalculate.setFont(font2)
         self.btCalculate.setStyleSheet(u"QPushButton {\n"
-"border: 3px solid black;\n"
+"border: 2px solid black;\n"
 "background-color: rgb(89, 255, 28);\n"
 "border-radius: 5px;\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
-"border: 2px solid black;\n"
+"border: 1px solid black;\n"
 "background-color: rgb(89, 255, 28);\n"
 "border-radius: 7px;\n"
 "}\n"
 "\n"
 "QPushButton:clicked {\n"
-"border: 2px solid black;\n"
+"border: 1px solid black;\n"
 "background-color: rgb(13, 173, 26);\n"
 "border-radius: 5px;\n"
 "}\n"
