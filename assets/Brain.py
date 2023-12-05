@@ -96,16 +96,16 @@ class Brain:
         if not rank:
             return self.how_many_cards(list_of_cards, suit=suit) / len(list_of_cards)
         elif not suit:
-            return self.how_many_cards(list_of_cards, value=rank) / len(list_of_cards)
+            return self.how_many_cards(list_of_cards, rank=rank) / len(list_of_cards)
         else:
-            return self.how_many_cards(list_of_cards, value=rank, suit=suit) / len(list_of_cards)
+            return self.how_many_cards(list_of_cards, rank=rank, suit=suit) / len(list_of_cards)
         
 
 
 
         # TODO:
         # 1. flush -> work on every suit not only unique in hand||board
-        # 2. straight -> do
+        # 2. straight -> dont count overlapping straights / add ace conversion to 1
         # 3. straight flush -> do
         # 4. royal flush -> do
         # 5. full house -> find bug and fix it ( sometimes is 2x higher than three of a kind ) **DONE** ( PROBABLY :) )
@@ -220,10 +220,33 @@ class Brain:
     def straight_chance(self):
         """
         returns the chance of getting straight for given hand and board
-        1. ...
-        2. ...
+        1. check if there is straight already -> return 1
+        2. check if possible to get a straight with given hand||board
+        3. find all rank combinations that can make a straight
+        4. calculate odds of getting a straight for every combination
         """
-        return "NOT IMPLEMENTED"
+        cards = self.hand.get_cards() + self.board.get_cards()
+        result = 0
+        draws_left = 5 - len(self.board.get_cards())
+        
+        for r1 in self.deck.ranks: # check if straight on board
+             if all(r1 + i in self.return_ranks(cards) for i in range(5)):
+                return 1
+
+        for r1 in self.deck.ranks[:-4]: # can't make a straight with last 4 ranks
+            ranks_needed = [r for r in range(r1, r1 + 5) if r not in self.return_ranks(cards)]
+
+            if len(ranks_needed) > draws_left:
+                continue
+
+            temp_odds = 1
+            for r2 in ranks_needed:
+                r2_drawn = len(self.return_ranks(cards, r2))
+                temp_odds *= self.newton(4 - r2_drawn, 1)
+
+            result += temp_odds / self.newton(52 - len(cards), len(ranks_needed))
+
+        return result
 
     def full_house_chance(self):
         """
@@ -296,6 +319,8 @@ class Brain:
         1. ...
         2. ...
         """
+        
+
         return "NOT IMPLEMENTED"
 
     def royal_flush_chance(self):
@@ -304,6 +329,8 @@ class Brain:
         1. ...
         2. ...
         """
+        
+
         return "NOT IMPLEMENTED"
 
     

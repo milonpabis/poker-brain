@@ -9,14 +9,16 @@ if __name__ == "__main__":
     #print(game.board)
 
     game.add_hand_card("H", 12)
-    game.add_hand_card("S", 12)
+    game.add_hand_card("S", 2)
 
     #print(game.deck)
     #print(game.hand)
 
-    game.add_board_card("S", 14)
-    game.add_board_card("C", 14)
-    game.add_board_card("C", 11)
+    game.add_board_card("S", 5)
+    game.add_board_card("S", 4)
+    game.add_board_card("S", 3)
+    
+    
     #game.add_board_card("H", 11)
     #game.add_board_card("C", 10)
 
