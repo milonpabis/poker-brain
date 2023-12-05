@@ -13,9 +13,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setWindowTitle("Poker Odds Calculator")
 
 
-
+        self.current_values = [0, 0, 0, 0, 0, 0, 0]
         self.brain = Brain()    # logic instance
         self._setupView()       # setting up widgets
+        
 
         
 
@@ -28,6 +29,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print("debug: reset")
 
     def calculate(self):
+        print(self.current_values)
         print("debug: calculate")
 
     def initialize_board(self):
@@ -62,6 +64,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.listClubs.clear()
         self.listDiamonds.clear()
         self.listSpades.clear()
+
+        self.current_values = [0, 0, 0, 0, 0, 0, 0]
 
         cards = self.brain.deck.get_cards()
         for card in cards:
@@ -100,43 +104,43 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         if lb1_cor.x() > 0 and lb1_cor.y() > 0 and lb1_cor.x() < 100 and lb1_cor.y() < 150:
             print("debug: dropEvent")
-            self.lbBoard1.setText(widget.value)
+            self.current_values[0] = widget.value
             self.lbBoard1.setPixmap(widget.pixmap())
             self._remove_card(widget)
 
         if lb2_cor.x() > 0 and lb2_cor.y() > 0 and lb2_cor.x() < 100 and lb2_cor.y() < 150:
             print("debug: dropEvent")
-            self.lbBoard2.setText(widget.value)
+            self.current_values[1] = widget.value
             self.lbBoard2.setPixmap(widget.pixmap())
             self._remove_card(widget)
 
         if lb3_cor.x() > 0 and lb3_cor.y() > 0 and lb3_cor.x() < 100 and lb3_cor.y() < 150:
             print("debug: dropEvent")
-            self.lbBoard3.setText(widget.value)
+            self.current_values[2] = widget.value
             self.lbBoard3.setPixmap(widget.pixmap())
             self._remove_card(widget)
 
         if lb4_cor.x() > 0 and lb4_cor.y() > 0 and lb4_cor.x() < 100 and lb4_cor.y() < 150:
             print("debug: dropEvent")
-            self.lbBoard4.setText(widget.value)
+            self.current_values[3] = widget.value
             self.lbBoard4.setPixmap(widget.pixmap())
             self._remove_card(widget)
 
         if lb5_cor.x() > 0 and lb5_cor.y() > 0 and lb5_cor.x() < 100 and lb5_cor.y() < 150:
             print("debug: dropEvent")
-            self.lbBoard5.setText(widget.value)
+            self.current_values[4] = widget.value
             self.lbBoard5.setPixmap(widget.pixmap())
             self._remove_card(widget)
         
         if lh1_cor.x() > 0 and lh1_cor.y() > 0 and lh1_cor.x() < 100 and lh1_cor.y() < 150:
             print("debug: dropEvent")
-            self.lbHand1.setText(widget.value)
+            self.current_values[5] = widget.value
             self.lbHand1.setPixmap(widget.pixmap())
             self._remove_card(widget)
 
         if lh2_cor.x() > 0 and lh2_cor.y() > 0 and lh2_cor.x() < 100 and lh2_cor.y() < 150:
             print("debug: dropEvent")
-            self.lbHand2.setText(widget.value)
+            self.current_values[6] = widget.value
             self.lbHand2.setPixmap(widget.pixmap())
             self._remove_card(widget)
         
