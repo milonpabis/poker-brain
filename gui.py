@@ -11,32 +11,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setAcceptDrops(True)
         self.setWindowTitle("Poker Odds Calculator")
-        self.btCalculate.clicked.connect(self.calculate)
-        self.btReset.clicked.connect(self.reset)
 
-        self.listHearts.setFlow(QListWidget.LeftToRight)
-        self.listHearts.setSpacing(10)
 
-        self.listDiamonds.setFlow(QListWidget.LeftToRight)
-        self.listDiamonds.setSpacing(10)
 
-        self.listSpades.setFlow(QListWidget.LeftToRight)
-        self.listSpades.setSpacing(10)
+        self.brain = Brain()    # logic instance
+        self._setupView()       # setting up widgets
 
-        self.listClubs.setFlow(QListWidget.LeftToRight)
-        self.listClubs.setSpacing(10)
+        
 
-        self.lbBoard1.setScaledContents(True)
-        self.lbBoard2.setScaledContents(True)
-        self.lbBoard3.setScaledContents(True)
-        self.lbBoard4.setScaledContents(True)
-        self.lbBoard5.setScaledContents(True)
-        self.lbHand1.setScaledContents(True)
-        self.lbHand2.setScaledContents(True)
 
-        self.brain = Brain()
 
-        self.initialize_board()
 
     def reset(self):
         #self.brain.reset()
@@ -118,38 +102,101 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print("debug: dropEvent")
             self.lbBoard1.setText(widget.value)
             self.lbBoard1.setPixmap(widget.pixmap())
-            print(widget)
-            self.listHearts.removeItemWidget(widget)
+            self._remove_card(widget)
 
         if lb2_cor.x() > 0 and lb2_cor.y() > 0 and lb2_cor.x() < 100 and lb2_cor.y() < 150:
             print("debug: dropEvent")
             self.lbBoard2.setText(widget.value)
             self.lbBoard2.setPixmap(widget.pixmap())
+            self._remove_card(widget)
 
         if lb3_cor.x() > 0 and lb3_cor.y() > 0 and lb3_cor.x() < 100 and lb3_cor.y() < 150:
             print("debug: dropEvent")
             self.lbBoard3.setText(widget.value)
             self.lbBoard3.setPixmap(widget.pixmap())
+            self._remove_card(widget)
 
         if lb4_cor.x() > 0 and lb4_cor.y() > 0 and lb4_cor.x() < 100 and lb4_cor.y() < 150:
             print("debug: dropEvent")
             self.lbBoard4.setText(widget.value)
             self.lbBoard4.setPixmap(widget.pixmap())
+            self._remove_card(widget)
 
         if lb5_cor.x() > 0 and lb5_cor.y() > 0 and lb5_cor.x() < 100 and lb5_cor.y() < 150:
             print("debug: dropEvent")
             self.lbBoard5.setText(widget.value)
             self.lbBoard5.setPixmap(widget.pixmap())
+            self._remove_card(widget)
         
         if lh1_cor.x() > 0 and lh1_cor.y() > 0 and lh1_cor.x() < 100 and lh1_cor.y() < 150:
             print("debug: dropEvent")
             self.lbHand1.setText(widget.value)
             self.lbHand1.setPixmap(widget.pixmap())
+            self._remove_card(widget)
 
         if lh2_cor.x() > 0 and lh2_cor.y() > 0 and lh2_cor.x() < 100 and lh2_cor.y() < 150:
             print("debug: dropEvent")
             self.lbHand2.setText(widget.value)
             self.lbHand2.setPixmap(widget.pixmap())
+            self._remove_card(widget)
         
         event.accept()
+
+
+    def _remove_card(self, cardView):
+        row = self._find_card_in_lists(cardView, self.listHearts)
+        print("H", row)
+        if row != -1:
+            self.listHearts.takeItem(row)
+            return
+        row = self._find_card_in_lists(cardView, self.listDiamonds)
+        print("D", row)
+        if row != -1:
+            self.listDiamonds.takeItem(row)
+            return
+        row = self._find_card_in_lists(cardView, self.listSpades)
+        print("S", row)
+        if row != -1:
+            self.listSpades.takeItem(row)
+            return
+        row = self._find_card_in_lists(cardView, self.listClubs)
+        print("C", row)
+        if row != -1:
+            self.listClubs.takeItem(row)
+            return
+
+    def _find_card_in_lists(self, cardView, list_widget):
+        for row in range(list_widget.count()):
+            item = list_widget.item(row)
+            if list_widget.itemWidget(item) is cardView:
+                return row
+        return -1
+    
+    def _setupView(self):
+        self.btCalculate.clicked.connect(self.calculate)
+        self.btReset.clicked.connect(self.reset)
+
+        self.listHearts.setFlow(QListWidget.LeftToRight)
+        self.listHearts.setSpacing(10)
+
+        self.listDiamonds.setFlow(QListWidget.LeftToRight)
+        self.listDiamonds.setSpacing(10)
+
+        self.listSpades.setFlow(QListWidget.LeftToRight)
+        self.listSpades.setSpacing(10)
+
+        self.listClubs.setFlow(QListWidget.LeftToRight)
+        self.listClubs.setSpacing(10)
+
+        self.lbBoard1.setScaledContents(True)
+        self.lbBoard2.setScaledContents(True)
+        self.lbBoard3.setScaledContents(True)
+        self.lbBoard4.setScaledContents(True)
+        self.lbBoard5.setScaledContents(True)
+        self.lbHand1.setScaledContents(True)
+        self.lbHand2.setScaledContents(True)
+        self.initialize_board()
+
+
+
 
