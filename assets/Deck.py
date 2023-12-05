@@ -15,15 +15,21 @@ class Deck:
     def shuffle(self):          # not really useful
         rd.shuffle(self.cards)
 
+    def reset(self):
+        self.cards = [Card(suit, rank) for suit in self.suits for rank in self.ranks]
+        self.complete = True
+
     @dispatch(Card)
     def remove_card(self, card):
         self.cards.remove(card)
+        self.complete = False
         return card
 
     @dispatch(str, int)
     def remove_card(self, suit, rank):
         card = [card for card in self.cards if card.get_suit() == suit and card.get_rank() == rank][0]
         self.cards.remove(card)
+        self.complete = False
         return card
     
     @dispatch(str)

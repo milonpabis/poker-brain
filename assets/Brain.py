@@ -272,8 +272,6 @@ class Brain:
                 amount_r2 = 2 - r2_drawn
                 if amount_r1 < 1 and amount_r2 < 1:
                     return 1
-                if amount_r1 + amount_r2 > draws_left:
-                    continue
                 if amount_r1 < 1:
                     amount_r1 = 0
                     if r2 in r2_alones_done:        # there was a fucking bug! 
@@ -285,7 +283,9 @@ class Brain:
                     if r1 in r1_alones_done:        # calculated, if so -> skip, if not -> store
                         continue                    
                     else:                           
-                        r1_alones_done.append(r1)   
+                        r1_alones_done.append(r1)  
+                if amount_r1 + amount_r2 > draws_left:
+                    continue 
                 #print("FULL", "r1:", r1, "r2:", r2, "amount_r1:", amount_r1, "amount_r2:", amount_r2)
                 temp = self.newton(4 - r1_drawn, amount_r1) * self.newton(4 - r2_drawn, amount_r2) * self.newton(52 - amount_r1 - amount_r2 - len(cards), draws_left - amount_r1 - amount_r2) / self.newton(52 - len(cards), draws_left)
                 result += temp
@@ -337,6 +337,27 @@ class Brain:
 
     def newton(self, n, k):
         return factorial(n) / (factorial(k) * factorial(n - k))
+    
+    def calculate(self):
+        """
+        returns a list of all odds for given hand and board
+        """
+        result = []
+        result.append(self.pair_chance())
+        result.append(self.two_pair_chance())
+        result.append(self.three_of_a_kind_chance())
+        result.append(self.straight_chance())
+        result.append(self.flush_chance())
+        result.append(self.full_house_chance())
+        result.append(self.four_of_a_kind_chance())
+        result.append(self.straight_flush_chance())
+        result.append(self.royal_flush_chance())
+        return result
+
+    def reset(self):
+        self.deck.reset()
+        self.hand.reset()
+        self.board.reset()
 
     
 

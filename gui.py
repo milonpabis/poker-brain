@@ -4,6 +4,9 @@ from assets.UI.CardView import CardView, QListWidgetItem, QPoint, Qt, QListWidge
 from assets.Brain import Brain
 
 
+# TODO:
+# - repair reset function!
+
 class MainWindow(QMainWindow, Ui_MainWindow):
 
     def __init__(self):
@@ -24,23 +27,59 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
     def reset(self):
-        #self.brain.reset()
+        self.brain.reset()
         self.initialize_board()
         print("debug: reset")
 
     def calculate(self):
         print(self.current_values)
+        can_calculate = True
+        
+        hand1 = self.current_values[5]
+        hand2 = self.current_values[6]
+        board1 = self.current_values[0]
+        board2 = self.current_values[1]
+        board3 = self.current_values[2]
+        board4 = self.current_values[3]
+        board5 = self.current_values[4]
+
+        if not hand1 or not hand2:
+            can_calculate = False
+        else:
+            print(hand1, hand2)
+            self.brain.add_hand_card(hand1[0], int(hand1[1:]))
+            self.brain.add_hand_card(hand2[0], int(hand2[1:]))
+
+        if board1:
+            self.brain.add_board_card(board1[0], int(board1[1:]))
+        if board2:
+            self.brain.add_board_card(board2[0], int(board2[1:]))
+        if board3:
+            self.brain.add_board_card(board3[0], int(board3[1:]))
+        if board4:
+            self.brain.add_board_card(board4[0], int(board4[1:]))
+        if board5:
+            self.brain.add_board_card(board5[0], int(board5[1:]))
+
+        if can_calculate:
+            result = self.brain.calculate()
+            print(result)
+            result = list(map(lambda x: round(x*100, 2) if isinstance(x, float) or isinstance(x, int) else x, result))
+            print(result)
+
+            self.l_pairOdd.setText(str(result[0]) + "%")
+            self.l_twoPairOdd.setText(str(result[1]) + "%")
+            self.l_ThreeOdd.setText(str(result[2]) + "%")
+            self.l_straightOdd.setText(str(result[3]) + "%")
+            self.l_flushOdd.setText(str(result[4]) + "%")
+            self.l_fullOdd.setText(str(result[5]) + "%")
+            self.l_fourOdd.setText(str(result[6]) + "%")
+            self.l_straightFlushOdd.setText(str(result[7]) + "%")
+            self.l_royalFlushOdd.setText(str(result[8]) + "%")
+
         print("debug: calculate")
 
     def initialize_board(self):
-        self.lbBoard1.setText("")
-        self.lbBoard2.setText("")
-        self.lbBoard3.setText("")
-        self.lbBoard4.setText("")
-        self.lbBoard5.setText("")
-        self.lbHand1.setText("")
-        self.lbHand2.setText("")
-
         self.lbBoard1.setPixmap(QPixmap())
         self.lbBoard2.setPixmap(QPixmap())
         self.lbBoard3.setPixmap(QPixmap())
