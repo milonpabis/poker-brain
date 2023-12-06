@@ -5,7 +5,7 @@ from assets.Brain import Brain
 
 
 # TODO:
-# - repair reset function!
+# - repair reset function! DONE
 
 class MainWindow(QMainWindow, Ui_MainWindow):
 
@@ -76,6 +76,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.l_fourOdd.setText(str(result[6]) + "%")
             self.l_straightFlushOdd.setText(str(result[7]) + "%")
             self.l_royalFlushOdd.setText(str(result[8]) + "%")
+
+        self.brain.reset()
 
         print("debug: calculate")
 
