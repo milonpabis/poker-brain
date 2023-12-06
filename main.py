@@ -8,15 +8,16 @@ if __name__ == "__main__":
     #print(game.hand)
     #print(game.board)
 
-    game.add_hand_card("H", 12)
-    game.add_hand_card("S", 2)
+    game.add_hand_card("H", 10)
+    game.add_hand_card("S", 12)
 
     #print(game.deck)
     #print(game.hand)
 
-    game.add_board_card("S", 5)
-    game.add_board_card("S", 4)
-    game.add_board_card("S", 3)
+    game.add_board_card("S", 13)
+    game.add_board_card("S", 2)
+    game.add_board_card("S", 14)
+    
     
     
     #game.add_board_card("H", 11)

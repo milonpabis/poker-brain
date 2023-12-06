@@ -100,16 +100,17 @@ class Brain:
         else:
             return self.how_many_cards(list_of_cards, rank=rank, suit=suit) / len(list_of_cards)
         
-
+    def has_subset(self, ranks_elem, list_of_ranks):                          # returns if there is a subset of ranks_elem in list_of_ranks
+            return any(set(other_ranks_elem).issubset(set(ranks_elem)) for other_ranks_elem in list_of_ranks if ranks_elem != other_ranks_elem)
+    
 
 
         # TODO:
         # 1. flush -> work on every suit not only unique in hand||board
-        # 2. straight -> dont count overlapping straights / add ace conversion to 1
-        # 3. straight flush -> do
-        # 4. royal flush -> do
-        # 5. full house -> find bug and fix it ( sometimes is 2x higher than three of a kind ) **DONE** ( PROBABLY :) )
-        # 6. two pair -> find bug and fix it ( shows 1 even if there is only 1 pair)   **DONE**
+        # 2. straight flush -> do
+        # 3. royal flush -> do
+        # 4. full house -> find bug and fix it ( sometimes is 2x higher than three of a kind ) **DONE** ( PROBABLY :) )
+        # 5. two pair -> find bug and fix it ( shows 1 even if there is only 1 pair)   **DONE**
         
         
     def flush_chance(self):     # USING 2 ABOVE FUNCTIONS AND INFO ABOUT CARDS IN HAND AND BOARD
@@ -219,34 +220,42 @@ class Brain:
 
     def straight_chance(self):
         """
-        returns the chance of getting straight for given hand and board
-        1. check if there is straight already -> return 1
-        2. check if possible to get a straight with given hand||board
-        3. find all rank combinations that can make a straight
-        4. calculate odds of getting a straight for every combination
+        Returns the chance of getting straight for given hand and board
+        1. Check if there is straight already -> return 1
+        2. Check if possible to get a straight with given hand||board
+        3. Find all rank combinations that can make a straight
+        4. Calculate odds of getting a straight for every combination and put them into a list
+        5. Remove overlapping straights and their odds from list
+        6. Sum the odds and return
         """
-        cards = self.hand.get_cards() + self.board.get_cards()
-        result = 0
+
+        all_ranks = self.deck.ranks
+        all_ranks.insert(0, 1)
+        user_cards = self.hand.get_cards() + self.board.get_cards()
+        user_ranks = set(self.return_ranks(user_cards))
+        user_cards_len = len(user_cards)
         draws_left = 5 - len(self.board.get_cards())
-        
-        for r1 in self.deck.ranks: # check if straight on board
-             if all(r1 + i in self.return_ranks(cards) for i in range(5)):
+
+        if 14 in user_ranks:                        # ace conversion to 1
+            user_ranks.add(1)
+
+        for r in all_ranks:                       # check if straight on board
+             if all(r + i in user_ranks for i in range(5)):
                 return 1
+        
+        master_list = [
+            {
+                "considered_ranks": ranks_needed,
+                "considered_odds": self.newton(4, 1) ** len(ranks_needed) / self.newton(52 - user_cards_len, len(ranks_needed))
+            }
+            for r in all_ranks[:-4]
+            if len(ranks_needed := [r for r in range(r, r + 5) if r not in user_ranks]) < draws_left
+        ]
 
-        for r1 in self.deck.ranks[:-4]: # can't make a straight with last 4 ranks
-            ranks_needed = [r for r in range(r1, r1 + 5) if r not in self.return_ranks(cards)]
-
-            if len(ranks_needed) > draws_left:
-                continue
-
-            temp_odds = 1
-            for r2 in ranks_needed:
-                r2_drawn = len(self.return_ranks(cards, r2))
-                temp_odds *= self.newton(4 - r2_drawn, 1)
-
-            result += temp_odds / self.newton(52 - len(cards), len(ranks_needed))
-
-        return result
+        #print(master_list) #debug
+        list_of_ranks = [element["considered_ranks"] for element in master_list]   # remove overlapping straights
+        master_list2 = [element for element in master_list if not self.has_subset(element["considered_ranks"], list_of_ranks)]
+        return sum([element["considered_odds"] for element in master_list2])
 
     def full_house_chance(self):
         """
@@ -272,6 +281,8 @@ class Brain:
                 amount_r2 = 2 - r2_drawn
                 if amount_r1 < 1 and amount_r2 < 1:
                     return 1
+                if amount_r1 + amount_r2 > draws_left:
+                    continue
                 if amount_r1 < 1:
                     amount_r1 = 0
                     if r2 in r2_alones_done:        # there was a fucking bug! 
@@ -283,9 +294,7 @@ class Brain:
                     if r1 in r1_alones_done:        # calculated, if so -> skip, if not -> store
                         continue                    
                     else:                           
-                        r1_alones_done.append(r1)  
-                if amount_r1 + amount_r2 > draws_left:
-                    continue 
+                        r1_alones_done.append(r1)   
                 #print("FULL", "r1:", r1, "r2:", r2, "amount_r1:", amount_r1, "amount_r2:", amount_r2)
                 temp = self.newton(4 - r1_drawn, amount_r1) * self.newton(4 - r2_drawn, amount_r2) * self.newton(52 - amount_r1 - amount_r2 - len(cards), draws_left - amount_r1 - amount_r2) / self.newton(52 - len(cards), draws_left)
                 result += temp
@@ -337,27 +346,6 @@ class Brain:
 
     def newton(self, n, k):
         return factorial(n) / (factorial(k) * factorial(n - k))
-    
-    def calculate(self):
-        """
-        returns a list of all odds for given hand and board
-        """
-        result = []
-        result.append(self.pair_chance())
-        result.append(self.two_pair_chance())
-        result.append(self.three_of_a_kind_chance())
-        result.append(self.straight_chance())
-        result.append(self.flush_chance())
-        result.append(self.full_house_chance())
-        result.append(self.four_of_a_kind_chance())
-        result.append(self.straight_flush_chance())
-        result.append(self.royal_flush_chance())
-        return result
-
-    def reset(self):
-        self.deck.reset()
-        self.hand.reset()
-        self.board.reset()
 
     
 
