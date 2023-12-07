@@ -107,10 +107,10 @@ class Brain:
 
         # TODO:
         # 1. flush -> work on every suit not only unique in hand||board
-        # 2. straight flush -> do
+        # 2. straight flush -> do ace conversion to one
         # 3. royal flush -> do
         # 4. full house -> find bug and fix it ( sometimes is 2x higher than three of a kind ) **DONE** ( PROBABLY :) )
-        # 5. two pair -> find bug and fix it ( shows 1 even if there is only 1 pair)   **DONE**
+        # 5. two pair -> find bug and fix it ( shows 1 even if there    is only 1 pair)   **DONE**
         # 6. straight -> remove duplicates (sometimes) **DONE**
         
         
@@ -334,13 +334,53 @@ class Brain:
 
     def straight_flush_chance(self):
         """
-        returns the chance of getting straight flush for given hand and board
-        1. ...
-        2. ...
+        Returns the chance of getting straight flush for given hand and board
+        1. Check if there is straight already -> return 1
+        2. Create a dictionary with all ranks for each suit of the user
+        3. Check if possible to get a straight with given hand||board
+        4. Find all rank combinations that can make a straight flush
+        5. Calculate odds of getting a straight flush for every combination per suit and put them into a list
+        6. // Remove overlapping straights and their odds from list // Currently not accounting for overlap
+        7. Sum the odds and return
+        // Function doesn't get rid of duplicates as you can have duplicate chances for straight flush if you have 2 card of same rank
+        but different suit
         """
+        all_ranks = [1] + self.deck.ranks
+        user_cards = self.hand.get_cards() + self.board.get_cards()
+        user_ranks = set(self.return_ranks(user_cards))
+        user_suits = set(self.return_suits(user_cards))
         
+        ranks_per_suit = {suit: set(card.get_rank() for card in user_cards if card.get_suit() == suit) for suit in user_suits}
 
-        return "NOT IMPLEMENTED"
+        user_cards_len = len(user_cards)
+        draws_left = 5 - len(self.board.get_cards())
+
+        if 14 in user_ranks:                     # ace conversion to 1
+            user_ranks.add(1)
+        
+        for suit in ranks_per_suit:
+            for r in ranks_per_suit[suit]:
+                if all(r + i in ranks_per_suit[suit] for i in range(5)):
+                    return 1
+        
+        master_suit_list = []                       # set removing duplicates
+
+        for suit in ranks_per_suit:
+            for r in all_ranks[:-4]:
+                ranks_needed = tuple(sorted(rank for rank in range(r, r + 5) if rank not in ranks_per_suit[suit]))
+                if len(ranks_needed) <= draws_left:
+                    master_suit_list.append(ranks_needed) 
+
+        master_list = [                          # calculate odds
+            {
+                "considered_ranks": ranks_needed,
+                "considered_odds": self.newton(52 - user_cards_len, draws_left - len(ranks_needed)) * self.newton(4, 1) ** len(ranks_needed) / self.newton(52 - user_cards_len, draws_left)
+            }
+            for ranks_needed in master_suit_list
+        ]
+
+        print(f"\nSTRAIGHT FLUSH DEBUG {master_list}\n") #debug
+        return sum([element["considered_odds"] for element in master_list])
 
     def royal_flush_chance(self):
         """

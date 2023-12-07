@@ -8,7 +8,7 @@ if __name__ == "__main__":
     #print(game.hand)
     #print(game.board)
 
-    game.add_hand_card("H", 12)
+    game.add_hand_card("H", 7)
     game.add_hand_card("S", 2)
 
     #print(game.deck)
@@ -17,7 +17,7 @@ if __name__ == "__main__":
     game.add_board_card("S", 5)
     game.add_board_card("S", 4)
     game.add_board_card("S", 3)
-    
+    game.add_board_card("H", 12)
     
     #game.add_board_card("H", 11)
     #game.add_board_card("C", 10)
