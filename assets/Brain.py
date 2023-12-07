@@ -229,8 +229,7 @@ class Brain:
         6. Sum the odds and return
         """
 
-        all_ranks = self.deck.ranks
-        all_ranks.insert(0, 1)
+        all_ranks = [1] + self.deck.ranks
         user_cards = self.hand.get_cards() + self.board.get_cards()
         user_ranks = set(self.return_ranks(user_cards))
         user_cards_len = len(user_cards)
@@ -341,6 +340,27 @@ class Brain:
         
 
         return "NOT IMPLEMENTED"
+    
+    def calculate(self):
+        """
+        returns a list of all odds for given hand and board
+        """
+        result = []
+        result.append(self.pair_chance())
+        result.append(self.two_pair_chance())
+        result.append(self.three_of_a_kind_chance())
+        result.append(self.straight_chance())
+        result.append(self.flush_chance())
+        result.append(self.full_house_chance())
+        result.append(self.four_of_a_kind_chance())
+        result.append(self.straight_flush_chance())
+        result.append(self.royal_flush_chance())
+        return result
+
+    def reset(self):
+        self.deck.reset()
+        self.hand.reset()
+        self.board.reset()
 
     
 
