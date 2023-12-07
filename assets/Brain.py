@@ -111,7 +111,7 @@ class Brain:
         # 3. royal flush -> do
         # 4. full house -> find bug and fix it ( sometimes is 2x higher than three of a kind ) **DONE** ( PROBABLY :) )
         # 5. two pair -> find bug and fix it ( shows 1 even if there is only 1 pair)   **DONE**
-        # 6. straight -> remove duplicates (sometimes)
+        # 6. straight -> remove duplicates (sometimes) **DONE**
         
         
     def flush_chance(self):     # USING 2 ABOVE FUNCTIONS AND INFO ABOUT CARDS IN HAND AND BOARD
@@ -224,7 +224,7 @@ class Brain:
         Returns the chance of getting straight for given hand and board
         1. Check if there is straight already -> return 1
         2. Check if possible to get a straight with given hand||board
-        3. Find all rank combinations that can make a straight
+        3. Find all rank combinations that can make a straight and are not duplicates
         4. Calculate odds of getting a straight for every combination and put them into a list
         5. // Remove overlapping straights and their odds from list // Currently not accounting for overlap
         6. Sum the odds and return
@@ -236,25 +236,33 @@ class Brain:
         user_cards_len = len(user_cards)
         draws_left = 5 - len(self.board.get_cards())
 
-        if 14 in user_ranks:                        # ace conversion to 1
+        if 14 in user_ranks:                     # ace conversion to 1
             user_ranks.add(1)
 
-        for r in all_ranks:                       # check if straight on board
+        for r in all_ranks:                      # check if straight on board
              if all(r + i in user_ranks for i in range(5)):
                 return 1
         
-        master_list = [
+        master_set = set()                       # set removing duplicates
+
+        for r in all_ranks[:-4]:
+            ranks_needed = tuple(sorted(rank for rank in range(r, r + 5) if rank not in user_ranks))
+            if len(ranks_needed) <= draws_left:
+                master_set.add(ranks_needed) 
+
+        master_list = [                          # calculate odds
             {
                 "considered_ranks": ranks_needed,
                 "considered_odds": self.newton(52 - user_cards_len, draws_left - len(ranks_needed)) * self.newton(4, 1) ** len(ranks_needed) / self.newton(52 - user_cards_len, draws_left)
             }
-            for r in all_ranks[:-4]
-            if len(ranks_needed := [r for r in range(r, r + 5) if r not in user_ranks]) <= draws_left
+            for ranks_needed in master_set
         ]
 
-        print(f"\nSTRAIGHT DEBUG {master_list}\n") #debug
-        #list_of_ranks = [element["considered_ranks"] for element in master_list]   # remove overlapping straights
+        #print(f"\nSTRAIGHT DEBUG {master_list}\n") #debug
+
+        #list_of_ranks = [element["considered_ranks"] for element in master_list]   # remove overlapping straights // version out of date
         #master_list2 = [element for element in master_list if not self.has_subset(element["considered_ranks"], list_of_ranks)]
+
         #print(f"\nSTRAIGHT DEBUG READY {master_list2}\n") #debug
         
         return sum([element["considered_odds"] for element in master_list])
