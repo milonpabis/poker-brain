@@ -107,13 +107,7 @@ class Brain:
 
         # TODO:
         # 1. flush -> work on every suit not only unique in hand||board
-        # 2. straight flush -> do ace conversion to one **DONE**
-        # 3. royal flush -> do **DONE**
-        # 4. full house -> find bug and fix it ( sometimes is 2x higher than three of a kind ) **DONE** ( PROBABLY :) )
-        # 5. two pair -> find bug and fix it ( shows 1 even if there    is only 1 pair)   **DONE**
-        # 6. straight -> remove duplicates (sometimes) **DONE**
-        # 7. straight -> subtract chance for straight flush / take suit into account
-        # 8. full house -> bugfix (negative numbers in newton for some card combinations)
+        # 2. straight -> subtract chance for straight flush / take suit into account
         
         
     def flush_chance(self):     # USING 2 ABOVE FUNCTIONS AND INFO ABOUT CARDS IN HAND AND BOARD
@@ -151,19 +145,26 @@ class Brain:
         2. if not, calculate the odds of getting pair for every card in hand||board
         """
         cards = self.hand.get_cards() + self.board.get_cards()
-        result = 0
+        res2 = 0
         draws_left = 5 - len(self.board.get_cards())
 
-        for r in self.deck.ranks:                               # simple combinatorics equation
-            r_drawn = len(self.return_ranks(cards, r))
-            amount = 2 - r_drawn
-            if amount < 1:
+        #for r in self.deck.ranks:                               # simple combinatorics equation
+        #    r_drawn = len(self.return_ranks(cards, r))
+        #    amount = 2 - r_drawn
+        #    if amount < 1:
+        #        return 1
+        #    if amount > draws_left:
+        #        continue
+        #    temp = self.newton(4 - r_drawn, amount) * self.newton(52 - amount - len(cards), draws_left - amount) / self.newton(52 - len(cards), draws_left)
+        #    result += temp
+
+        unique_ranks = set(self.return_ranks(cards))
+        for rr in unique_ranks:
+            if len(self.return_ranks(cards, rr)) == 2:
                 return 1
-            if amount > draws_left:
-                continue
-            temp = self.newton(4 - r_drawn, amount) * self.newton(52 - amount - len(cards), draws_left - amount) / self.newton(52 - len(cards), draws_left)
-            result += temp
-        return result
+        if draws_left >= 1:
+            res2 = self.newton(3 * len(unique_ranks), 1) * self.newton(52 - len(unique_ranks) - 1, draws_left - 1) / self.newton(52 - len(unique_ranks), draws_left)
+        return res2
     
 
     def two_pair_chance(self):
@@ -293,8 +294,6 @@ class Brain:
                 amount_r2 = 2 - r2_drawn
                 if amount_r1 < 1 and amount_r2 < 1:
                     return 1
-                if amount_r1 + amount_r2 > draws_left:
-                    continue
                 if amount_r1 < 1:
                     amount_r1 = 0
                     if r2 in r2_alones_done:        # there was a fucking bug! 
@@ -306,7 +305,9 @@ class Brain:
                     if r1 in r1_alones_done:        # calculated, if so -> skip, if not -> store
                         continue                    
                     else:                           
-                        r1_alones_done.append(r1)   
+                        r1_alones_done.append(r1) 
+                if amount_r1 + amount_r2 > draws_left:
+                    continue  
                 #print("FULL", "r1:", r1, "r2:", r2, "amount_r1:", amount_r1, "amount_r2:", amount_r2)
                 temp = self.newton(4 - r1_drawn, amount_r1) * self.newton(4 - r2_drawn, amount_r2) * self.newton(52 - amount_r1 - amount_r2 - len(cards), draws_left - amount_r1 - amount_r2) / self.newton(52 - len(cards), draws_left)
                 result += temp
