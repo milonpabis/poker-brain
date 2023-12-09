@@ -162,8 +162,12 @@ class Brain:
         for rr in unique_ranks:
             if len(self.return_ranks(cards, rr)) == 2:
                 return 1
-        if draws_left >= 1:
-            res2 = self.newton(3 * len(unique_ranks), 1) * self.newton(52 - len(unique_ranks) - 1, draws_left - 1) / self.newton(52 - len(unique_ranks), draws_left)
+        if draws_left >= 1 and len(unique_ranks):
+            res2 = self.newton(3 * len(unique_ranks), 1) * self.newton(52 - 3*len(unique_ranks) - 1, draws_left - 1) / self.newton(52 - len(unique_ranks), draws_left)
+            print(res2)
+        if draws_left >= 2:
+            res2 += self.newton(4, 2) * self.newton(13 - len(unique_ranks), 1) * self.newton(52 - 4*len(unique_ranks) - 2, draws_left - 2) / self.newton(52 - len(unique_ranks), draws_left)
+            print(res2)
         return res2
     
 

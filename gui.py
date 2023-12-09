@@ -44,7 +44,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         board5 = self.current_values[4]
 
         if not hand1 or not hand2:
-            can_calculate = False
+            can_calculate = True
         else:
             print(hand1, hand2)
             self.brain.add_hand_card(hand1[0], int(hand1[1:]))
